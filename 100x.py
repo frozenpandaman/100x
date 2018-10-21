@@ -62,7 +62,7 @@ def main():
 
 	while True:
 		# sleep
-		for i in range(300, -1, -1):
+		for i in range(600, -1, -1):
 			sys.stdout.write("Sleeping... {} ".format(i))
 			sys.stdout.flush()
 			time.sleep(1)
