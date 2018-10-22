@@ -30,21 +30,13 @@ def fetch_json():
 		return events["events"][0]
 
 # def save_to_file(events):
-# 	filename = "{}.json".format(int(time.time()))
+# 	filename = "{}.json".format(events["updated_time"])
 # 	with open(filename, 'w') as outfile:
 # 		json.dump(events, outfile, indent=4, sort_keys=True, separators=(',', ': '))
 # 	print("Wrote {}".format(filename))
 
-def ordered(obj): # https://stackoverflow.com/a/25851972
-	if isinstance(obj, dict):
-		return sorted((k, ordered(v)) for k, v in obj.items())
-	if isinstance(obj, list):
-		return sorted(ordered(x) for x in obj)
-	else:
-		return obj
-
 def record_winners(events):
-	filename = "winners.txt"
+	filename = "100x_winners_{}.txt".format(fest_id)
 	with open(filename, 'a') as outfile:
 		outfile.write("{}:\n".format(datetime.datetime.fromtimestamp(events["updated_time"]).strftime('%b %d, %Y @ %I:%M:%S %p')))
 		if events["another_name"] != "":
@@ -62,19 +54,18 @@ def main():
 
 	while True:
 		# sleep
-		for i in range(600, -1, -1):
+		for i in range(300, -1, -1):
 			sys.stdout.write("Sleeping... {} ".format(i))
 			sys.stdout.flush()
 			time.sleep(1)
 			sys.stdout.write("\r")
 
 		events = fetch_json()
-		if ordered(events) != ordered(last_json):
+		if events["updated_time"] != last_json["updated_time"]:
 			print("Changes detected at {}!".format(datetime.datetime.fromtimestamp(events["updated_time"]).strftime('%I:%M %p')))
 			record_winners(events)
 			events = last_json
 		else:
-			# print("No changes detected...")
 			pass
 
 if __name__ == "__main__":
