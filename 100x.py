@@ -64,9 +64,9 @@ def main():
 		if events["updated_time"] != last_json["updated_time"]:
 			print("Changes detected at {}!".format(datetime.datetime.fromtimestamp(events["updated_time"]).strftime('%I:%M %p')))
 			record_winners(events)
-			events = last_json
 		else:
 			pass
+		last_json = events
 
 if __name__ == "__main__":
 	main()
