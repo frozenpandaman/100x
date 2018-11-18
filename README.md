@@ -1,7 +1,18 @@
 # 100x.py
 
-Records winners of all 100x battles during Splatfests in _Splatoon 2_ and saves them to `winners.txt`.
+During Splatfests in _Splatoon 2_, records winners of all 100x battles (which occur at a rate of 1 every 10 minutes).
 
-Inputs:
-* Ongoing Splatfest festival ID (e.g. 4053)
-* Your `iksm_session` cookie (used to access SplatNet)
+Upon running the program, you'll need to enter the following:
+* Active Splatfest festival ID (e.g. 4053) – check [here](https://splatoon2.ink/data/festivals.json)
+* Your `iksm_session` cookie (used to access SplatNet) – obstructions to obtain [here](https://github.com/frozenpandaman/splatnet2statink/wiki/mitmproxy-instructions)
+
+## Usage
+
+```
+$ python 100x.py
+```
+or simply `./100x.py` if on Mac/Linux.
+
+## Past recordings
+
+http://elifessler.com/s2s/splatfest/
