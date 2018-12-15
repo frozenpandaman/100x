@@ -15,8 +15,12 @@ app_head = {
 	'Accept-Language': 'en-US'
 }
 
-iksm_cookie = input("Enter your iksm_session cookie: ")
-fest_id = input("Enter the Splatfest ID: ")
+if len(sys.argv) == 3:
+	iksm_cookie = sys.argv[1]
+	fest_id = sys.argv[2]
+else:
+	iksm_cookie = input("Enter your iksm_session cookie: ")
+	fest_id = input("Enter the Splatfest ID: ")
 
 last_json = {}
 
@@ -31,12 +35,6 @@ def fetch_json():
 		pass
 	if events["events"][0]["event_type"]["key"] == "100_x_match":
 		return events["events"][0]
-
-# def save_to_file(events):
-# 	filename = "{}.json".format(events["updated_time"])
-# 	with open(filename, 'w') as outfile:
-# 		json.dump(events, outfile, indent=4, sort_keys=True, separators=(',', ': '))
-# 	print("Wrote {}".format(filename))
 
 def record_winners(events):
 	filename = "100x_winners_{}.txt".format(fest_id)
