@@ -24,9 +24,12 @@ def fetch_json():
 	url = "https://app.splatoon2.nintendo.net/api/festivals/{}/events".format(fest_id)
 	events_list = requests.get(url, headers=app_head, cookies=dict(iksm_session=iksm_cookie))
 	events = json.loads(events_list.text)
-	if events["events"][1]["event_type"]["key"] == "100_x_match":
-		return events["events"][1]
-	elif events["events"][0]["event_type"]["key"] == "100_x_match":
+	try:
+		if events["events"][1]["event_type"]["key"] == "100_x_match":
+			return events["events"][1]
+	except:
+		pass
+	if events["events"][0]["event_type"]["key"] == "100_x_match":
 		return events["events"][0]
 
 # def save_to_file(events):
