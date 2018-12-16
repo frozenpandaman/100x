@@ -33,8 +33,12 @@ def fetch_json():
 			return events["events"][1]
 	except:
 		pass
-	if events["events"][0]["event_type"]["key"] == "100_x_match":
-		return events["events"][0]
+	try:
+		if events["events"][0]["event_type"]["key"] == "100_x_match":
+			return events["events"][0]
+	except:
+		print("Splatfest ID #{} is not currently active!".format(fest_id))
+		exit()
 
 def record_winners(events):
 	filename = "100x_winners_{}.txt".format(fest_id)
