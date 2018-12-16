@@ -13,6 +13,8 @@ $ python 100x.py
 ```
 or simply `./100x.py` if on Mac/Linux.
 
+Alternatively, enter the arguments on the commannd line: `./100x.py 1fca7daa216b16d531d8xxxxxxxxxxxxxxxxxxxx 4053`
+
 ## Past recordings
 
 http://elifessler.com/s2s/splatfest/
