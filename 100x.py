@@ -15,12 +15,14 @@ app_head = {
 	'Accept-Language': 'en-US'
 }
 
-if len(sys.argv) == 3:
+if len(sys.argv) == 4:
 	iksm_cookie = sys.argv[1]
 	fest_id = sys.argv[2]
+	refresh_interval = sys.argv[3]
 else:
 	iksm_cookie = input("Enter your iksm_session cookie: ")
 	fest_id = input("Enter the Splatfest ID: ")
+	refresh_interval = input("Enter refresh interval (sec): ")
 
 last_json = {}
 
@@ -59,7 +61,7 @@ def main():
 
 	while True:
 		# sleep
-		for i in range(300, -1, -1):
+		for i in range(int(refresh_interval), -1, -1):
 			sys.stdout.write("Sleeping... {} ".format(i))
 			sys.stdout.flush()
 			time.sleep(1)
@@ -67,7 +69,7 @@ def main():
 
 		events = fetch_json()
 		if events["updated_time"] != last_json["updated_time"]:
-			print("Changes detected at {}!".format(datetime.datetime.fromtimestamp(events["updated_time"]).strftime('%I:%M %p')))
+			print("Changes detected at {}!".format(datetime.datetime.fromtimestamp(events["updated_time"]).strftime('%I:%M:%S %p')))
 			record_winners(events)
 		else:
 			pass
