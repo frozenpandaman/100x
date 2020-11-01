@@ -53,6 +53,13 @@ def record_winners(events):
 		outfile.write("\n")
 	print("Updated winners file.")
 
+def is_dupe(events, last_json):
+	one_same   = True if events["members"][0]["name"] == last_json["members"][0]["name"] else False
+	two_same   = True if events["members"][1]["name"] == last_json["members"][1]["name"] else False
+	three_same = True if events["members"][2]["name"] == last_json["members"][2]["name"] else False
+	four_same  = True if events["members"][3]["name"] == last_json["members"][3]["name"] else False
+	return one_same and two_same and three_same and four_same
+
 def main():
 	# save on boot
 	events = fetch_json()
@@ -68,7 +75,7 @@ def main():
 			sys.stdout.write("\r")
 
 		events = fetch_json()
-		if events["updated_time"] != last_json["updated_time"]:
+		if not is_dupe(events, last_json):
 			print("Changes detected at {}!".format(datetime.datetime.fromtimestamp(events["updated_time"]).strftime('%I:%M:%S %p')))
 			record_winners(events)
 		else:
